@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { rolesRouter } from "@roles/roles/http/routes/roles.routes";
+import { rolesRouter } from "@roles/http/routes/roles.routes";
 
 const routes = Router();
 

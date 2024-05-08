@@ -1,4 +1,4 @@
-import { Role } from "@roles/roles/entities/Role";
+import { Role } from "@roles/entities/Role";
 import { Router } from "express";
 import { Request, Response } from "express";
 
