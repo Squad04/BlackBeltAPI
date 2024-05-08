@@ -1,20 +1,22 @@
+import { Role } from "@roles/roles/entities/Role";
 import { Router } from "express";
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
 
 // Provisório antes de adicinar o banco
 
-const roles = [];
+const roles: Role[] = [];
 
 const rolesRouter = Router();
 
 rolesRouter.post("/", (req: Request, res: Response) => {
   const { name } = req.body;
-  const role = {
-    id: uuidv4(),
+
+  const role = new Role();
+
+  Object.assign(role, {
     name,
     created_at: new Date(),
-  };
+  });
 
   roles.push(role);
 
