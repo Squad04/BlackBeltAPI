@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "module-alias/register";
 import express, { Express, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import { routes } from "./routes";
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(routes);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
