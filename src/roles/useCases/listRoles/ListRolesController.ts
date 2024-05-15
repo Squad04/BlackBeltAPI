@@ -1,12 +1,11 @@
-import { RolesRepository } from "@roles/repositories/RolesRepository";
 import { Request, Response } from "express";
+import { ListRolesUseCase } from "./ListRolesUseCase";
 
 export class ListRolesController {
-  constructor() {}
+  constructor(private listRolesUseCase: ListRolesUseCase) {}
 
   handle(req: Request, res: Response): Response {
-    const rolesRepository = new RolesRepository();
-    const roles = rolesRepository.findAll();
+    const roles = this.listRolesUseCase.execute();
 
     return res.status(200).json(roles);
   }
