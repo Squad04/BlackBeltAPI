@@ -1,9 +1,7 @@
 import { RolesRepository } from "@roles/repositories/RolesRepository";
-import { CreateRolesUseCase } from "./CreateRolesUseCase";
-import { CreateRolesController } from "./CreateRolesController";
+import { CreateRoleUseCase } from "./CreateRoleUseCase";
+import { CreateRoleController } from "./CreateRoleController";
 
 const rolesRepository = RolesRepository.getInstance();
-const createRolesUseCase = new CreateRolesUseCase(rolesRepository);
-export const createRolesController = new CreateRolesController(
-  createRolesUseCase,
-);
+const createRoleUseCase = new CreateRoleUseCase(rolesRepository);
+export const createRoleController = new CreateRoleController(createRoleUseCase);

@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import { createRolesController, listRolesController } from "@roles/useCases";
+import { createRoleController } from "@roles/useCases/createRoles";
+import { listRolesController } from "@roles/useCases/listRoles";
 
 const rolesRouter = Router();
 
 rolesRouter.post("/", (req: Request, res: Response): Response => {
-  return createRolesController.handle(req, res);
+  return createRoleController.handle(req, res);
 });
 
 rolesRouter.get("/", (req: Request, res: Response) => {

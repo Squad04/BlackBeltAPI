@@ -6,7 +6,7 @@ type CreateRoleDTO = {
   name: string;
 };
 
-export class CreateRolesUseCase {
+export class CreateRoleUseCase {
   constructor(private rolesRepository: RolesRepository) {}
 
   execute({ name }: CreateRoleDTO): Role {
