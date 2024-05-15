@@ -29,8 +29,10 @@ export class RolesRepository {
   }
 
   findByName(name: string): Role | undefined {
-    return this.roles.find(
+    const role = this.roles.find(
       role => role.name.toLowerCase() === name.toLowerCase(),
     );
+
+    return role;
   }
 }

@@ -7,7 +7,7 @@ export class CreateRolesController {
   handle(req: Request, res: Response): Response {
     const { name } = req.body;
 
-    const role = this.createRolesUseCase.execute(name);
+    const role = this.createRolesUseCase.execute({ name });
 
     return res.status(201).json(role);
   }
