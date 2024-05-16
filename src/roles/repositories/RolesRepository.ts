@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { Role } from "@roles/entities/Role";
-import { AppError } from "@shared/errors/AppError";
 
 type CreateRoleDTO = {
   name: string;
@@ -24,27 +23,17 @@ export class RolesRepository {
   }
 
   async create({ name }: CreateRoleDTO): Promise<Role> {
-    try {
-      const role = await this.prisma.role.create({
-        data: {
-          name,
-        },
-      });
+    const role = await this.prisma.role.create({
+      data: {
+        name,
+      },
+    });
 
-      return role;
-    } catch (error) {
-      console.error("Erro ao criar um papel:", error);
-      throw new AppError("Erro interno do servidor", 500);
-    }
+    return role;
   }
 
   async findAll(): Promise<Role[]> {
-    try {
-      return await this.prisma.role.findMany();
-    } catch (error) {
-      console.error("Erro ao encontrar todos os papéis:", error);
-      throw new AppError("Erro interno do servidor", 500);
-    }
+    return await this.prisma.role.findMany();
   }
 
   async findByName(name: string): Promise<Role | undefined> {
