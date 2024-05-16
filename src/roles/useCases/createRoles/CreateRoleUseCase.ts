@@ -10,16 +10,11 @@ export class CreateRoleUseCase {
   constructor(private rolesRepository: RolesRepository) {}
 
   async execute({ name }: CreateRoleDTO): Promise<Role> {
-    try {
-      const roleAlreadyExists = await this.rolesRepository.findByName(name);
-      if (roleAlreadyExists) {
-        throw new AppError("Role already exists");
-      }
-
-      return await this.rolesRepository.create({ name });
-    } catch (error) {
-      console.error("Erro ao criar um papel:", error);
-      throw new AppError("Erro interno do servidor", 500);
+    const roleAlreadyExists = await this.rolesRepository.findByName(name);
+    if (roleAlreadyExists) {
+      throw new AppError("Role already exists");
     }
+
+    return await this.rolesRepository.create({ name });
   }
 }
