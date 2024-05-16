@@ -13,7 +13,6 @@ services:
     volumes:
       - mysql-data-new:/var/lib/mysql
 
-
   app:
     build: .
     container_name: api_blackbelt

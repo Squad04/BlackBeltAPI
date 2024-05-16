@@ -1,16 +1,18 @@
+import { PrismaClient } from "@prisma/client";
 import { Role } from "@roles/entities/Role";
+import { AppError } from "@shared/errors/AppError";
 
 type CreateRoleDTO = {
   name: string;
 };
 
 export class RolesRepository {
-  roles: Role[] = [];
+  private prisma: PrismaClient;
 
   private static INSTANCE: RolesRepository;
 
   private constructor() {
-    this.roles = [];
+    this.prisma = new PrismaClient();
   }
 
   public static getInstance(): RolesRepository {
@@ -21,27 +23,36 @@ export class RolesRepository {
     return RolesRepository.INSTANCE;
   }
 
-  create({ name }: CreateRoleDTO): Role {
-    const role = new Role();
+  async create({ name }: CreateRoleDTO): Promise<Role> {
+    try {
+      const role = await this.prisma.role.create({
+        data: {
+          name,
+        },
+      });
 
-    Object.assign(role, {
-      name,
-      created_at: new Date(),
+      return role;
+    } catch (error) {
+      console.error("Erro ao criar um papel:", error);
+      throw new AppError("Erro interno do servidor", 500);
+    }
+  }
+
+  async findAll(): Promise<Role[]> {
+    try {
+      return await this.prisma.role.findMany();
+    } catch (error) {
+      console.error("Erro ao encontrar todos os papéis:", error);
+      throw new AppError("Erro interno do servidor", 500);
+    }
+  }
+
+  async findByName(name: string): Promise<Role | undefined> {
+    const role = await this.prisma.role.findUnique({
+      where: {
+        name,
+      },
     });
-
-    this.roles.push(role);
-
-    return role;
-  }
-
-  findAll(): Role[] {
-    return this.roles;
-  }
-
-  findByName(name: string): Role | undefined {
-    const role = this.roles.find(
-      role => role.name.toLowerCase() === name.toLowerCase(),
-    );
 
     return role;
   }

@@ -4,8 +4,8 @@ import { RolesRepository } from "@roles/repositories/RolesRepository";
 export class ListRolesUseCase {
   constructor(private rolesRepository: RolesRepository) {}
 
-  execute(): Role[] {
-    const roles = this.rolesRepository.findAll();
+  async execute(): Promise<Role[]> {
+    const roles = await this.rolesRepository.findAll();
 
     return roles;
   }

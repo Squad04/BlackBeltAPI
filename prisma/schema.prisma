@@ -16,5 +16,5 @@ datasource db {
 model Role {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
-  name     String   @db.VarChar(255)
+  name     String   @db.VarChar(255) @unique
 }
