@@ -18,7 +18,7 @@
         }
       },
       "post": {
-        "summary": "Criar uma nova role",
+        "summary": "Create a new role",
         "tags": ["Role"],
         "requestBody": {
           "content": {
@@ -40,6 +40,94 @@
           },
           "400": {
             "description": "Role already exists."
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "get": {
+        "summary": "Get a role by ID",
+        "tags": ["Role"],
+        "description": "Returns a role based on the ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role found."
+          },
+          "404": {
+            "description": "Role not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a role",
+        "tags": ["Role"],
+        "description": "Updates a role based on the ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Role updated."
+          },
+          "400": {
+            "description": "Another role with the same name already exists."
+          },
+          "404": {
+            "description": "Role not found."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a role",
+        "tags": ["Role"],
+        "description": "Deletes a role based on the ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Role deleted."
+          },
+          "404": {
+            "description": "Role not found."
           }
         }
       }
