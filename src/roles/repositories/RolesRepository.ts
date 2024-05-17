@@ -57,4 +57,12 @@ export class RolesRepository implements IRolesRepository {
 
     return updatedRole;
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.role.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
