@@ -14,5 +14,5 @@ export interface IRolesRepository {
   findAll(): Promise<Role[]>;
   findByName(name: string): Promise<Role>;
   findById(id: string): Promise<Role | undefined>;
-  update(data: UpdateRoleDTO): Promise<Role>;
+  update({ id, name }: UpdateRoleDTO): Promise<Role>;
 }
