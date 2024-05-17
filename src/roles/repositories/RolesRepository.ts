@@ -25,6 +25,16 @@ export class RolesRepository implements IRolesRepository {
     return await this.prisma.role.findMany();
   }
 
+  async findById(id: string): Promise<Role | undefined> {
+    const role = await this.prisma.role.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return role;
+  }
+
   async findByName(name: string): Promise<Role | undefined> {
     const role = await this.prisma.role.findUnique({
       where: {
