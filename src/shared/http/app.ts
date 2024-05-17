@@ -4,6 +4,7 @@ import { routes } from "./routes";
 import { AppError } from "@shared/errors/AppError";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../swagger.json";
+import "@shared/container/dependencyInjection";
 
 const app: Express = express();
 
