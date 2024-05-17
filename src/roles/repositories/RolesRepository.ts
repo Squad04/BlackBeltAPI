@@ -1,25 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { Role } from "@roles/entities/Role";
+import { singleton } from "tsyringe";
+import { IRolesRepository, CreateRoleDTO } from "./IRolesRepository";
 
-type CreateRoleDTO = {
-  name: string;
-};
-
-export class RolesRepository {
+@singleton()
+export class RolesRepository implements IRolesRepository {
   private prisma: PrismaClient;
 
-  private static INSTANCE: RolesRepository;
-
-  private constructor() {
+  constructor() {
     this.prisma = new PrismaClient();
-  }
-
-  public static getInstance(): RolesRepository {
-    if (!RolesRepository.INSTANCE) {
-      RolesRepository.INSTANCE = new RolesRepository();
-    }
-
-    return RolesRepository.INSTANCE;
   }
 
   async create({ name }: CreateRoleDTO): Promise<Role> {

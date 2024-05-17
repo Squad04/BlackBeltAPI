@@ -1,14 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { ListRolesUseCase } from "./ListRolesUseCase";
+import { container } from "tsyringe";
 import { asyncHandler } from "@shared/errors/AsyncErrorHandler";
+import { ListRolesUseCase } from "./ListRolesUseCase";
 
 export class ListRolesController {
-  constructor(private listRolesUseCase: ListRolesUseCase) {}
-
   handle = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const roles = await this.listRolesUseCase.execute();
+        const listRolesUseCase = container.resolve(ListRolesUseCase);
+
+        const roles = await listRolesUseCase.execute();
 
         return res.status(200).json(roles);
       } catch (error) {

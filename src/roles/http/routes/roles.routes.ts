@@ -1,10 +1,13 @@
 import { NextFunction, Router } from "express";
 import { Request, Response } from "express";
-import { createRoleController } from "@roles/useCases/createRoles";
-import { listRolesController } from "@roles/useCases/listRoles";
 import { asyncHandler } from "@shared/errors/AsyncErrorHandler";
+import { container } from "tsyringe";
+import { CreateRoleController } from "@roles/useCases/createRoles/CreateRoleController";
+import { ListRolesController } from "@roles/useCases/listRoles/ListRolesController";
 
 const rolesRouter = Router();
+const createRoleController = container.resolve(CreateRoleController);
+const listRolesController = container.resolve(ListRolesController);
 
 rolesRouter.post(
   "/",
