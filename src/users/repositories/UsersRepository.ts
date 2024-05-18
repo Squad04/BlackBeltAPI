@@ -30,6 +30,20 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  async findAll(): Promise<User[]> {
+    const users = await this.prisma.user.findMany({
+      include: {
+        role: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    return users;
+  }
+
   async findById(id: string): Promise<User | undefined> {
     const user = await this.prisma.user.findUnique({
       where: {

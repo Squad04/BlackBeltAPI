@@ -9,7 +9,7 @@ export type UserResponseDTO = {
   id?: string;
   name: string;
   email: string;
-  role: {
+  role?: {
     name: string;
   };
   createdAt?: Date;
