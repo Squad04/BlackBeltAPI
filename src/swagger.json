@@ -133,6 +133,16 @@
       }
     },
     "/users": {
+      "get": {
+        "summary": "List all users",
+        "tags": ["User"],
+        "description": "Returns all the users",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "summary": "Register a new user",
         "tags": ["User"],
