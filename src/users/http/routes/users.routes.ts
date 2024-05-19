@@ -10,13 +10,9 @@ const createUserController = container.resolve(CreateUserController);
 const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
 
-usersRouter.post(
-  "/",
-  isAuthenticated,
-  (req: Request, res: Response, next: NextFunction) => {
-    createUserController.handle(req, res, next);
-  },
-);
+usersRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
+  createUserController.handle(req, res, next);
+});
 
 usersRouter.get(
   "/",
