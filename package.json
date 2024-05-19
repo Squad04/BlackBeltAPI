@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "_moduleAliases": {
+    "@config": "dist/config",
     "@roles": "dist/roles",
     "@shared": "dist/shared",
     "@users": "dist/users"

@@ -10,6 +10,7 @@
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
+      "@config/*": ["src/config/*"],
       "@roles/*": ["src/roles/*"],
       "@shared/*": ["src/shared/*"],
       "@users/*": ["src/users/*"],
