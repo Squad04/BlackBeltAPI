@@ -15,6 +15,10 @@
       "@shared/*": ["src/shared/*"],
       "@users/*": ["src/users/*"],
     },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
     "resolveJsonModule": true,
 
     "allowJs": true,
