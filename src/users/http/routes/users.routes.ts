@@ -6,6 +6,11 @@ import { ShowProfileController } from "@users/useCases/showProfile/ShowProfileCo
 import { UpdateProfileController } from "@users/useCases/updateProfile/UpdateProfileController";
 import { NextFunction, Request, Response, Router } from "express";
 import { container } from "tsyringe";
+import {
+  createUserSchema,
+  loginSchema,
+  updateUserSchema,
+} from "./schemas/validationSchema";
 
 const usersRouter = Router();
 const createUserController = container.resolve(CreateUserController);
@@ -14,9 +19,13 @@ const createLoginController = container.resolve(CreateLoginController);
 const showProfileController = container.resolve(ShowProfileController);
 const updateProfileController = container.resolve(UpdateProfileController);
 
-usersRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
-  createUserController.handle(req, res, next);
-});
+usersRouter.post(
+  "/",
+  createUserSchema,
+  (req: Request, res: Response, next: NextFunction) => {
+    createUserController.handle(req, res, next);
+  },
+);
 
 usersRouter.get(
   "/",
@@ -28,6 +37,7 @@ usersRouter.get(
 
 usersRouter.post(
   "/login",
+  loginSchema,
   (req: Request, res: Response, next: NextFunction) => {
     createLoginController.handle(req, res, next);
   },
@@ -45,6 +55,7 @@ usersRouter.get(
 
 usersRouter.put(
   "/profile",
+  updateUserSchema,
   isAuthenticated,
   (req: Request, res: Response, next: NextFunction) => {
     updateProfileController.handle(req, res, next);
