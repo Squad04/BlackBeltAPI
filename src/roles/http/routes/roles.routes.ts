@@ -7,6 +7,11 @@ import { ShowRoleController } from "@roles/useCases/showRole/ShowRoleController"
 import { UpdateRoleController } from "@roles/useCases/updateRole/UpdateRoleController";
 import { DeleteRoleController } from "@roles/useCases/deleteRole/DeleteRoleController";
 import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
+import {
+  createRoleSchema,
+  showRoleSchema,
+  updateRoleSchema,
+} from "./schemas/validationSchema";
 
 const rolesRouter = Router();
 const createRoleController = container.resolve(CreateRoleController);
@@ -17,24 +22,38 @@ const deleteRoleController = container.resolve(DeleteRoleController);
 
 rolesRouter.use(isAuthenticated);
 
-rolesRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
-  createRoleController.handle(req, res, next);
-});
+rolesRouter.post(
+  "/",
+  createRoleSchema,
+  (req: Request, res: Response, next: NextFunction) => {
+    createRoleController.handle(req, res, next);
+  },
+);
 
 rolesRouter.get("/", (req: Request, res: Response, next: NextFunction) => {
   listRolesController.handle(req, res, next);
 });
 
-rolesRouter.get("/:id", (req: Request, res: Response, next: NextFunction) => {
-  showRoleController.handle(req, res, next);
-});
-
-rolesRouter.put("/:id", (req: Request, res: Response, next: NextFunction) =>
-  updateRoleController.handle(req, res, next),
+rolesRouter.get(
+  "/:id",
+  showRoleSchema,
+  (req: Request, res: Response, next: NextFunction) => {
+    showRoleController.handle(req, res, next);
+  },
 );
 
-rolesRouter.delete("/:id", (req: Request, res: Response, next: NextFunction) =>
-  deleteRoleController.handle(req, res, next),
+rolesRouter.put(
+  "/:id",
+  updateRoleSchema,
+  (req: Request, res: Response, next: NextFunction) =>
+    updateRoleController.handle(req, res, next),
+);
+
+rolesRouter.delete(
+  "/:id",
+  showRoleSchema,
+  (req: Request, res: Response, next: NextFunction) =>
+    deleteRoleController.handle(req, res, next),
 );
 
 export { rolesRouter };
