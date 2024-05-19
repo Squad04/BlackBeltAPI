@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { IUsersRepository } from "./IUsersRepository";
 import { User } from "@users/entities/User";
-import { CreateUserDTO } from "@users/dto/UserDTO";
+import { CreateUserDTO, UpdateUserDTO } from "@users/dto/UserDTO";
 import { singleton } from "tsyringe";
 
 @singleton()
@@ -76,5 +76,20 @@ export class UsersRepository implements IUsersRepository {
     });
 
     return user;
+  }
+
+  async update({ id, name, email, password }: UpdateUserDTO): Promise<User> {
+    const updatedUser = await this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+        email: email,
+        password: password,
+      },
+    });
+
+    return updatedUser;
   }
 }

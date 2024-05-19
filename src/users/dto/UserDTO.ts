@@ -5,6 +5,14 @@ export type CreateUserDTO = {
   roleId?: string;
 };
 
+export type UpdateUserDTO = {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  oldPassword?: string;
+};
+
 export type LoginDTO = {
   email: string;
   password: string;
@@ -16,7 +24,7 @@ export type LoginResponseDTO = {
 };
 
 export type UserResponseDTO = {
-  id?: string;
+  id: string;
   name: string;
   email: string;
   role?: {

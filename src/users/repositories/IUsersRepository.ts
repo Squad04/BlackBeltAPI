@@ -1,4 +1,4 @@
-import { CreateUserDTO } from "@users/dto/UserDTO";
+import { CreateUserDTO, UpdateUserDTO } from "@users/dto/UserDTO";
 import { User } from "@users/entities/User";
 
 export interface IUsersRepository {
@@ -6,4 +6,5 @@ export interface IUsersRepository {
   findAll(): Promise<User[]>;
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
+  update({ id, name, email, password }: UpdateUserDTO): Promise<User>;
 }
