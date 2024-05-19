@@ -5,6 +5,16 @@ export type CreateUserDTO = {
   roleId?: string;
 };
 
+export type LoginDTO = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponseDTO = {
+  user: UserResponseDTO;
+  token: string;
+};
+
 export type UserResponseDTO = {
   id?: string;
   name: string;
