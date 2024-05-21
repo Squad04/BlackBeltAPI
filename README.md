@@ -32,39 +32,15 @@ A variável `DATABASE_URL` precisará ser primeiro configurada na seguinte estru
 DATABASE_URL=mysql://usuario:senha@host:porta/nome_do_banco?schema=public&connect_timeout=300
 ```
 
-Localmente, o host é `localhost`. No `docker-compose.yml`, a porta exposta para que o MySQL rode é a **3308**, porém dentro do container é **3306**
+Veja que o `host` do banco não é o `localhost`, e sim o nome do serviço que está descrito no `docker-compose.yml`, que é `db`. E como tudo será executado internamente, não será ouvido na porta que foi exposta (**3308**), e sim na porta interna do container, **3306**.
 
-Então, o `DATABASE_URL` será para o local `mysql://usuario:senha@localhost:3308/nome_do_banco`.
-
-Configurado isso corretamente, dado que o `schema.prisma` usa também a variável de ambiente `DATABASE_URL`, execute os comandos:
-
-```bash
-npx prisma generate
-
-npx prisma db push
-```
-
-Isso já executa as migrações e também adiciona às mudanças ao banco de dados *localmente*.
-
-Agora mude o `DATABASE_URL` no `.env` para `mysql://usuario:senha@db:3306/nome_do_banco`, dado que será assim que ele irá executar internamente no container.
-
-Tendo o Docker instalado, rode o comando:
+Tendo feito essa configuração e configurando o restante das variáveis de ambiente, com o Docker instalado, rode o comando:
 
 ```bash
 docker compose --env-file .env up --build
 ```
 
-Esse comando usará o arquivo `.env` na raiz do projeto como base para que busque as variáveis de ambiente que são solicitadas no arquivo `docker-compose.yml`.
-
-Se a aplicação conseguir ser executada sem nenhum erro, abra outro terminal (ou rode depois com a opção `-d` no comando de `docker compose` para que ele rode sem travar o terminal) e execute as migrações dentro do container:
-
-```bash
-docker exec api_blackbelt npx prisma generate
-
-docker exec api_blackbelt npx prisma db push
-```
-
-Isso garantirá que já internamente o MySQL estará com o banco atualizado de acordo com o Prisma.
+Isso copiará as pastas para o container, fará o *build* da aplicação e também construirá o banco de dados da maneira que foi definida no arquivo `schema.prisma`.
 
 ### Seed
 
