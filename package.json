@@ -9,7 +9,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "seed:admin": "ts-node src/seeds/adminSeeder.ts"
+    "seed:admin": "ts-node src/seeds/adminSeeder.ts",
+    "setup:db:start": "npx prisma generate && npx prisma db push && npm run start"
   },
   "keywords": [],
   "author": "",
