@@ -4,6 +4,16 @@ import { hash } from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function seedAdmin() {
+  await prisma.role.upsert({
+    where: {
+      name: "user",
+    },
+    update: {},
+    create: {
+      name: "user",
+    },
+  });
+
   const adminEmail = "admin@email.com";
   const adminPassword = await hash("password943", 10);
 
