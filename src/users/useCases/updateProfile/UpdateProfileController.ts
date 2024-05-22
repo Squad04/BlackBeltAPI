@@ -21,7 +21,11 @@ export class UpdateProfileController {
           oldPassword,
         });
 
-        return res.json(UserMap.toDTO(user));
+        return res.json(
+          UserMap.toDTO({
+            ...user,
+          }),
+        );
       } catch (error) {
         next(error);
       }

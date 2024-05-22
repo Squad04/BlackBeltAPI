@@ -48,9 +48,7 @@ export class UserMap {
       id,
       name,
       email,
-      role: {
-        name: role.name,
-      },
+      role: role ? { name: role.name } : undefined,
       createdAt,
       updatedAt,
     };
