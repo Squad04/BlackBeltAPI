@@ -5,6 +5,7 @@ export class Token {
   userId: string;
   token: string;
   expiresAt: Date;
+  createdAt: Date;
 
   constructor() {
     if (!this.id) {
