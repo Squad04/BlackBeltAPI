@@ -22,7 +22,7 @@ export class ResetPasswordUseCase {
     const userToken = await this.tokensRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError("Token not found.");
+      throw new AppError("Token not found.", 404);
     }
 
     const tokenCreatedAt = userToken.createdAt;
