@@ -1,4 +1,5 @@
 import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
+import { isAdmin } from "@shared/http/middlewares/isAdmin";
 import { CreateLoginController } from "@users/useCases/createLogin/CreateLoginController";
 import { CreateUserController } from "@users/useCases/createUser/CreateUserController";
 import { ListUsersController } from "@users/useCases/listUsers/ListUsersController";
@@ -35,6 +36,7 @@ usersRouter.post(
 usersRouter.get(
   "/",
   isAuthenticated,
+  isAdmin,
   (req: Request, res: Response, next: NextFunction) => {
     listUsersController.handle(req, res, next);
   },

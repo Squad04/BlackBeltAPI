@@ -7,6 +7,7 @@ import { ShowRoleController } from "@roles/useCases/showRole/ShowRoleController"
 import { UpdateRoleController } from "@roles/useCases/updateRole/UpdateRoleController";
 import { DeleteRoleController } from "@roles/useCases/deleteRole/DeleteRoleController";
 import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
+import { isAdmin } from "@shared/http/middlewares/isAdmin";
 import {
   createRoleSchema,
   showRoleSchema,
@@ -21,6 +22,7 @@ const updateRoleController = container.resolve(UpdateRoleController);
 const deleteRoleController = container.resolve(DeleteRoleController);
 
 rolesRouter.use(isAuthenticated);
+rolesRouter.use(isAdmin);
 
 rolesRouter.post(
   "/",
