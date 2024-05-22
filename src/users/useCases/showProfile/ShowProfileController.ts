@@ -11,7 +11,7 @@ export class ShowProfileController {
 
         const { id } = req.user;
 
-        const user = showProfileUseCase.execute({ userId: id });
+        const user = await showProfileUseCase.execute({ userId: id });
 
         return res.json(user);
       } catch (error) {
