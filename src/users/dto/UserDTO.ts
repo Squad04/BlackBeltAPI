@@ -3,6 +3,7 @@ export type CreateUserDTO = {
   email: string;
   password: string;
   roleId?: string;
+  isAdmin?: boolean;
 };
 
 export type UpdateUserDTO = {

@@ -19,6 +19,7 @@ export class CreateUserUseCase {
     email,
     password,
     roleId,
+    isAdmin = false,
   }: CreateUserDTO): Promise<UserResponseDTO> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
@@ -45,6 +46,7 @@ export class CreateUserUseCase {
       email,
       password: hashedPassword,
       roleId: role.id,
+      isAdmin,
     });
 
     return UserMap.toDTO({
