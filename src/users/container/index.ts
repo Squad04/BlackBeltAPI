@@ -6,6 +6,7 @@ import { ListUsersController } from "@users/useCases/listUsers/ListUsersControll
 import { SendForgotPasswordMailController } from "@users/useCases/sendForgotPasswordMail/SendForgotPasswordMailController";
 import { ShowProfileController } from "@users/useCases/showProfile/ShowProfileController";
 import { UpdateProfileController } from "@users/useCases/updateProfile/UpdateProfileController";
+import { ResetPasswordController } from "@users/useCases/resetPassword/ResetPasswordController";
 import { ITokensRepository } from "@tokens/repositories/ITokensRepository";
 import { TokensRepository } from "@tokens/repositories/TokensRepository";
 import { container } from "tsyringe";
@@ -29,3 +30,4 @@ container.registerSingleton(
   "SendForgotPasswordMailController",
   SendForgotPasswordMailController,
 );
+container.registerSingleton("ResetPasswordController", ResetPasswordController);

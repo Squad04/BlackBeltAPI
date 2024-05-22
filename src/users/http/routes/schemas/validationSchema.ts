@@ -37,3 +37,19 @@ export const forgotPasswordSchema = celebrate({
     email: Joi.string().email().required(),
   },
 });
+
+export const resetPasswordSchema = celebrate({
+  [Segments.BODY]: {
+    password: Joi.string().required(),
+    passwordConfirmation: Joi.string()
+      .valid(Joi.ref("password"))
+      .when("password", {
+        is: Joi.exist(),
+        then: Joi.required(),
+      })
+      .messages({ "any.only": "Passwords do not match." }),
+  },
+  [Segments.QUERY]: {
+    token: Joi.string().uuid().required(),
+  },
+});

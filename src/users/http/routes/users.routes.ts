@@ -7,11 +7,13 @@ import { ShowProfileController } from "@users/useCases/showProfile/ShowProfileCo
 import { UpdateProfileController } from "@users/useCases/updateProfile/UpdateProfileController";
 import { NextFunction, Request, Response, Router } from "express";
 import { SendForgotPasswordMailController } from "@users/useCases/sendForgotPasswordMail/SendForgotPasswordMailController";
+import { ResetPasswordController } from "@users/useCases/resetPassword/ResetPasswordController";
 import { container } from "tsyringe";
 import {
   createUserSchema,
   forgotPasswordSchema,
   loginSchema,
+  resetPasswordSchema,
   updateUserSchema,
 } from "./schemas/validationSchema";
 
@@ -24,6 +26,7 @@ const updateProfileController = container.resolve(UpdateProfileController);
 const sendForgotPasswordMailController = container.resolve(
   SendForgotPasswordMailController,
 );
+const resetPasswordController = container.resolve(ResetPasswordController);
 
 usersRouter.post(
   "/",
@@ -76,6 +79,14 @@ usersRouter.post(
   forgotPasswordSchema,
   (req: Request, res: Response, next: NextFunction) =>
     sendForgotPasswordMailController.handle(req, res, next),
+);
+
+usersRouter.post(
+  "/reset-password",
+  resetPasswordSchema,
+  (req: Request, res: Response, next: NextFunction) => {
+    resetPasswordController.handle(req, res, next);
+  },
 );
 
 export { usersRouter };
