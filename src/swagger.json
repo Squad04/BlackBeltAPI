@@ -288,6 +288,84 @@
           }
         }
       }
+    },
+    "/users/forgot-password": {
+      "post": {
+        "summary": "Send forgot password email",
+        "tags": ["User"],
+        "description": "Sends an email to reset the user's password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/users/reset-password": {
+      "post": {
+        "summary": "Reset user password",
+        "tags": ["User"],
+        "description": "Resets the user's password using the provided token",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "55ebaa5b-2889-423f-a57f-c6b8e10689d1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "newPassword123"
+                  },
+                  "passwordConfirmation": {
+                    "type": "string",
+                    "example": "newPassword123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Token not found or expired"
+          }
+        }
+      }
     }
   }
 }
