@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/shared/http/server.ts",
   "scripts": {
-    "build": "rimraf dist && npx tsc",
+    "copy-views": "mkdir -p dist/shared/views/emails && cp -r src/shared/views/emails/* dist/shared/views/emails",
+    "build": "rimraf dist && npx tsc && npm run copy-views",
     "start": "node dist/shared/http/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "seed:admin": "ts-node src/seeds/adminSeeder.ts",
-    "setup:db:start": "npx prisma generate && npx prisma db push && npm run start"
+    "setup:db:start": "npx prisma generate && npx prisma db push && npm run seed:admin && npm run start"
   },
   "keywords": [],
   "author": "",
@@ -19,18 +20,22 @@
     "@config": "dist/config",
     "@roles": "dist/roles",
     "@shared": "dist/shared",
-    "@users": "dist/users"
+    "@users": "dist/users",
+    "@tokens": "dist/tokens"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.3",
     "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "module-alias": "^2.2.3",
+    "nodemailer": "^6.9.13",
+    "nodemailer-express-handlebars": "^6.1.2",
     "swagger-ui-express": "^5.0.0",
     "tsyringe": "^4.8.0",
     "uuid": "^9.0.1"
@@ -43,6 +48,8 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/module-alias": "^2.0.4",
     "@types/node": "^20.12.7",
+    "@types/nodemailer": "^6.4.15",
+    "@types/nodemailer-express-handlebars": "^4.0.5",
     "@types/swagger-ui-express": "^4.1.6",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
