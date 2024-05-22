@@ -42,10 +42,6 @@ docker compose --env-file .env up --build
 
 Isso copiará as pastas para o container, fará o *build* da aplicação e também construirá o banco de dados da maneira que foi definida no arquivo `schema.prisma`.
 
-### Seed
+### Documentação das rotas e serviços
 
-Na aplicação, há um arquivo chamado `adminSeeder.ts`. Configure seu email e senha lá, pois será a configuração da role de admistrador da aplicação. Nessa API é necessário tanto que o usuário tenha um token JWT válido para acessar os recursos (exceto login e criação de conta), mas também alguns recursos são acessíveis só para os admins da aplicação.
-
-No `package.json`, há um comando configurado como `npm run seed:admin` em que ele fará a criação tanto da role de admin como da conta de admin. Rode ele no Docker por meio do `docker exec api_blackbelt npm run seed:admin` e você já terá role e conta criada para agir como administrador.
-
-Os demais comandos se encontram no arquivo `package.json` na raiz do projeto.
+Com a aplicação rodando, basta acessar a rota `/api-docs`, que redireciona à Swagger UI onda consta a documentação de cada uma das rotas, onde é possível fazer algumas requisições (as que não necessitam de autenticação), conferir os parâmetros requeridos das rotas e também ver as respostas de cada uma das requisições.
