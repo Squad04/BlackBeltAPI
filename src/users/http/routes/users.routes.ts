@@ -5,9 +5,11 @@ import { ListUsersController } from "@users/useCases/listUsers/ListUsersControll
 import { ShowProfileController } from "@users/useCases/showProfile/ShowProfileController";
 import { UpdateProfileController } from "@users/useCases/updateProfile/UpdateProfileController";
 import { NextFunction, Request, Response, Router } from "express";
+import { SendForgotPasswordMailController } from "@users/useCases/sendForgotPasswordMail/SendForgotPasswordMailController";
 import { container } from "tsyringe";
 import {
   createUserSchema,
+  forgotPasswordSchema,
   loginSchema,
   updateUserSchema,
 } from "./schemas/validationSchema";
@@ -18,6 +20,9 @@ const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
 const showProfileController = container.resolve(ShowProfileController);
 const updateProfileController = container.resolve(UpdateProfileController);
+const sendForgotPasswordMailController = container.resolve(
+  SendForgotPasswordMailController,
+);
 
 usersRouter.post(
   "/",
@@ -60,6 +65,15 @@ usersRouter.put(
   (req: Request, res: Response, next: NextFunction) => {
     updateProfileController.handle(req, res, next);
   },
+);
+
+// Forgot & Reset Password routes
+
+usersRouter.post(
+  "/forgot-password",
+  forgotPasswordSchema,
+  (req: Request, res: Response, next: NextFunction) =>
+    sendForgotPasswordMailController.handle(req, res, next),
 );
 
 export { usersRouter };
