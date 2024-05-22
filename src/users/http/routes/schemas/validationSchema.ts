@@ -31,3 +31,9 @@ export const loginSchema = celebrate({
     password: Joi.string().required(),
   }),
 });
+
+export const forgotPasswordSchema = celebrate({
+  [Segments.BODY]: {
+    email: Joi.string().email().required(),
+  },
+});
