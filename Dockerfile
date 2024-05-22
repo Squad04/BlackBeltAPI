@@ -7,6 +7,6 @@ RUN npm install
 RUN chmod +x wait-for-it.sh
 COPY . .
 RUN npm run build
-ENV NODE_ENV development
+ENV NODE_ENV production
 EXPOSE 3000
 CMD ["./wait-for-it.sh", "db:3306", "--", "npm", "run", "setup:db:start"]

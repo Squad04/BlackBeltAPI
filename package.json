@@ -6,7 +6,7 @@
   "scripts": {
     "copy-views": "mkdir -p dist/shared/views/emails && cp -r src/shared/views/emails/* dist/shared/views/emails",
     "build": "rimraf dist && npx tsc && npm run copy-views",
-    "start": "node dist/shared/http/server.js",
+    "start": "NODE_ENV=production node dist/shared/http/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
